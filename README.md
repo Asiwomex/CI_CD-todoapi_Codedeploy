@@ -23,7 +23,9 @@ Prerequisites
 
 2.	Add User Data Script: Add the following user data script to install Docker and AWS CodeDeploy agent:
 To add the user data, click on Advance details and scroll to the bottom to add your user data.
- 
+
+![Picture2](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/16bfb9ec-8692-4697-88dc-7c80afac6d9f)
+
 Copy the code below into the user data section to install docker and Codedeploy agent during the instance launch process
 ```
 #!/bin/bash
@@ -106,55 +108,51 @@ For our own we will not be needing this since we not using s3
 •	Enter a name for the deployment group (e.g., todoapp-deployment-group).
 •	Select the service role with CodeDeploy permissions.
 •	In "Deployment type," select "In-place."
- 
 
+ ![Picture3](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/496e5791-6f90-43fb-834f-93cded25cdcd)
 
 •	In "Environment configuration," choose "Amazon EC2 instances" and select your EC2 instances using tags.
 First choose Name from the Key section and select your instance in the value tab.
 
- 
-
-
-
-
-
-
-
+ ![Picture4](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/27f3cb47-0a69-432b-ad39-c458e5fb0b5c)
 
 •	Uncheck enable load balancing settings .
 
- 
+ ![Picture5](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/cf68724b-862f-4629-b648-8667a0c67330)
 
-•	Click "Create deployment group."
+•	Click **"Create deployment group."**
 
 
-
-Step 5: Prepare GitHub Repository
+## Step 5: Prepare GitHub Repository
 1.	Create Deployment Scripts:
 •	In your GitHub repository, create the following directory structure:
- 
+
+ ![Picture6](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/1f300203-5881-4723-970d-4df858db0c6b)
+
 Create a directory named “scripts” in your root directory
 
 2.	Add Deployment Scripts:
+***replace asiwomex with your Docker username and todoapp with your image name***
 •	scripts/before_install.sh:
+```
 #!/bin/bash
-docker pull abudev22/todoapp:latest
+docker pull asiwomex/todoapp:latest
 docker stop my-website || true
 docker rm my-website || true
-
-replace abudev22 with your Docker username and todoapp with your image name
-
-
+```
 
 •	deploy/scripts/start_server.sh:
+```
 #!/bin/bash
-docker run -d --name my-website -p 8000:8000 abudev22/todoapp:latest
+docker run -d --name my-website -p 8000:8000 asiwomex/todoapp:latest
+```
 
 
 
 
 3.	create an AppSpec File in your root directory:
-•	appspec.yml:
+•	appspec.yml
+```
 version: 0.0
 os: linux
 files:
@@ -169,20 +167,15 @@ hooks:
     - location: scripts/start_server.sh
       timeout: 300
       runas: ec2-user
+```
 
-
-
-
-
-
-
-Step 6: Set Up GitHub Actions Workflow
+## Step 6: Set Up GitHub Actions Workflow
 1.	Create Workflow File:
 •	In your GitHub repository, create the following directory structure:
 .github/ workflows/ main.yml 
 2.	Add Workflow Configuration:
 Make sure to change the application name and application group to be the same as the one you created in step 4.
-main.yml
+**main.yml**
 ```
 name: Deploy website to EC2 using AWS CodeDeploy
 
@@ -223,7 +216,7 @@ jobs:
         AWS_REGION: us-east-2
 ```
 
-Step 7: Set Up GitHub Secrets
+## Step 7: Set Up GitHub Secrets
 1.	Add GitHub Secrets:
 •	In your GitHub repository, go to "Settings" > "Secrets" > "Actions."
 •	Add the following secrets:
@@ -231,26 +224,30 @@ Step 7: Set Up GitHub Secrets
 •	DOCKER_HUB_PASSWORD: Your Docker Hub password.
 •	AWS_ACCESS_KEY_ID: Your AWS access key ID.
 •	AWS_SECRET_ACCESS_KEY: Your AWS secret access key.
-Step 8: Push Changes to GitHub
+
+## Step 8: Push Changes to GitHub
 1.	Push Changes:
 •	Commit and push your changes to the main branch in your GitHub repository.
 2.	Monitor Deployment:
 •	Monitor the GitHub Actions workflow for any issues.
- 
+
+![Picture7](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/7b88117f-3b42-4d05-b854-d6caf4680707)
+
 •	Monitor the AWS CodeDeploy console for the deployment status.
- 
+
+ ![Picture8](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/61022e96-da70-4deb-8cf1-860a39fbccc5)
 
 By following these steps, you will have a completed setup for deploying your application from GitHub to EC2 using AWS CodeDeploy.
 
-
-
-Step 9: Confirm the App has been deployed
+## Step 9: Confirm the App has been deployed
 1.	Ssh into your instance using your pem file
-2.	Execute docker ps to confirm the container has been deployed on the instance.
+2.	Execute `docker ps` to confirm the container has been deployed on the instance.
  
 3.	If you can see it there, then the deployment was a success.
 
-Here is a diagram for the workflow.
+![Picture9](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/d4096b0f-5399-485a-a6e3-ac372a5d25e8)
+
+***Here is a diagram for the workflow.***
  
 ![Picture1](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/1dca22ce-91a5-40bd-bbad-72050454691a)
 
