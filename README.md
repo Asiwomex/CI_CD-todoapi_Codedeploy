@@ -142,7 +142,7 @@ docker pull abudev22/todoapp:latest
 docker stop my-website || true
 docker rm my-website || true
 
-# replace abudev22 with your Docker username and todoapp with your image name
+replace abudev22 with your Docker username and todoapp with your image name
 
 
 
@@ -252,4 +252,5 @@ Step 9: Confirm the App has been deployed
 
 Here is a diagram for the workflow.
  
+![Picture1](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/1dca22ce-91a5-40bd-bbad-72050454691a)
 
