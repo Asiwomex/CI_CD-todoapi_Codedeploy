@@ -133,6 +133,7 @@ Create a directory named “scripts” in your root directory
 
 2.	Add Deployment Scripts:
 ***replace asiwomex with your Docker username and todoapp with your image name***
+
 •	scripts/before_install.sh:
 ```
 #!/bin/bash
@@ -151,6 +152,7 @@ docker run -d --name my-website -p 8000:8000 asiwomex/todoapp:latest
 
 
 3.	create an AppSpec File in your root directory:
+
 •	appspec.yml
 ```
 version: 0.0
@@ -175,6 +177,7 @@ hooks:
 .github/ workflows/ main.yml 
 2.	Add Workflow Configuration:
 Make sure to change the application name and application group to be the same as the one you created in step 4.
+
 **main.yml**
 ```
 name: Deploy website to EC2 using AWS CodeDeploy
