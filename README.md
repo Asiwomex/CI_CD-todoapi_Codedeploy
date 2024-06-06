@@ -254,3 +254,5 @@ By following these steps, you will have a completed setup for deploying your app
  
 ![Picture1](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/1dca22ce-91a5-40bd-bbad-72050454691a)
 
+## Finally
+go to your EC2 and enable port 8000 and allow access from anywhere in order to view the app
