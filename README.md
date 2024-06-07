@@ -109,6 +109,8 @@ For our own we will not be needing this since we not using s3
 •	Select the service role with CodeDeploy permissions.
 •	In "Deployment type," select "In-place."
 
+***Under Additional deployment behavior settings, always check "Overwrite the content"***
+
  ![Picture3](https://github.com/Asiwomex/CI_CD-todoapi_Codedeploy/assets/118656806/496e5791-6f90-43fb-834f-93cded25cdcd)
 
 •	In "Environment configuration," choose "Amazon EC2 instances" and select your EC2 instances using tags.
