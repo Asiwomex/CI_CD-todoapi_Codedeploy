@@ -28,8 +28,8 @@ jobs:
     - name: Deploy to AWS CodeDeploy
       run: |
         aws deploy create-deployment \
-          --application-name todo-api \
-          --deployment-group-name testdeploy-grp \ 
+          --application-name testdeployapp \
+          --deployment-group-name testdeployapp \ 
           --github-location repository=${{ github.repository }},commitId=${{ github.sha }}      
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
