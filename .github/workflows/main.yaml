@@ -28,7 +28,7 @@ jobs:
     - name: Deploy to AWS CodeDeploy
       run: |
         aws deploy create-deployment \
-          --application-name testdeploy \
+          --application-name todo-api \
           --deployment-group-name testdeploy-grp \ 
           --github-location repository=${{ github.repository }},commitId=${{ github.sha }}      
       env:
